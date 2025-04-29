@@ -24,6 +24,11 @@ public class BigDecimalUtils {
 	public static BigDecimal safeDivide(BigDecimal a, BigDecimal b) {
 		validateNumbers(a, b);
 
+		if (b.compareTo(BigDecimal.ZERO) == 0) {
+			log.error("No se puede dividir entre cero.");
+			throw new CalculateException("No se puede dividir entre cero.");
+		}
+
 		log.info("Dividiendo {} entre {}", a, b);
 		return a.divide(b, DEFAULT_SCALE, DEFAULT_ROUNDING);
 	}
@@ -45,11 +50,6 @@ public class BigDecimalUtils {
 		if (num1.compareTo(BigDecimal.ZERO) < 0 || num2.compareTo(BigDecimal.ZERO) < 0) {
 			log.error("Los números no pueden ser negativos");
 			throw new CalculateException("Los números no pueden ser negativos");
-		}
-
-		if (num2.compareTo(BigDecimal.ZERO) == 0) {
-			log.error("No se puede operar con cero.");
-			throw new CalculateException("No se puede con cero.");
 		}
 	}
 }

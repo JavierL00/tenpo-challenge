@@ -5,4 +5,5 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class PathConstant {
 	public static final String TEST = "/test";
+	public static final String CALCULATE = "/calculate";
 }

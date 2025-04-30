@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class CallHistoryServiceImpl implements ICallHistoryService {
 	private final ICallHistoryRepository callHistoryRepository;
 
-	@Async
+	@Async("taskExecutor")
 	public void saveHistory(CallHistoryDtoRequest request) {
 		try {
 			CallHistoryEntity history = new CallHistoryEntity();
@@ -31,6 +31,7 @@ public class CallHistoryServiceImpl implements ICallHistoryService {
 			history.setResponseData(serializeObject(request.responseData()));
 			history.setError(request.isError());
 
+			log.info("Ejecutando async en thread: {}", Thread.currentThread().getName());
 			callHistoryRepository.save(history);
 			log.info("Historial guardado correctamente para endpoint: {}", request);
 		}

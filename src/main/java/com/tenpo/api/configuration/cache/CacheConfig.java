@@ -1,4 +1,4 @@
-package com.tenpo.api.cache.configuration;
+package com.tenpo.api.configuration.cache;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;

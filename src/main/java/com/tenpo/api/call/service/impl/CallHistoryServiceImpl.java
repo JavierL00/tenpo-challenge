@@ -48,7 +48,7 @@ public class CallHistoryServiceImpl implements ICallHistoryService {
 
 	private String serializeObject(Object obj) {
 		try {
-			return new ObjectMapper().writeValueAsString(obj);
+			return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(obj);
 		}
 		catch (Exception e) {
 			throw new CalculateException("Serialization error");

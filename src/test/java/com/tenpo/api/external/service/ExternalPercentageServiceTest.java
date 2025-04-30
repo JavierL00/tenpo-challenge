@@ -29,12 +29,12 @@ class ExternalPercentageServiceTest {
 
 	@Test
 	void testGetPercentage_validResponse_returnsPercentage() {
-		when(restTemplate.getForObject(anyString(), eq(Integer.class))).thenReturn(15);
+		when(restTemplate.getForObject(anyString(), eq(Integer[].class))).thenReturn(new Integer[]{15});
 
 		BigDecimal result = externalService.getPercentage();
 
 		assertEquals(new BigDecimal("15"), result);
-		verify(restTemplate, times(1)).getForObject(anyString(), eq(Integer.class));
+		verify(restTemplate, times(1)).getForObject(anyString(), eq(Integer[].class));
 	}
 
 	@Test
@@ -47,8 +47,8 @@ class ExternalPercentageServiceTest {
 
 	@Test
 	void testGetPercentage_exceptionThrown_throwsExternalException() {
-		when(restTemplate.getForObject(anyString(), eq(Integer.class))).thenThrow(new RuntimeException("Connection " +
-		 "error"));
+		when(restTemplate.getForObject(anyString(), eq(Integer[].class))).thenThrow(new RuntimeException(
+		 "Connection " + "error"));
 
 		ExternalException ex = assertThrows(ExternalException.class, () -> externalService.getPercentage());
 		assertEquals("Connection error", ex.getMessage());

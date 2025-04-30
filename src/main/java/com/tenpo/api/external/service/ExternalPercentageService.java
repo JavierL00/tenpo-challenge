@@ -19,8 +19,7 @@ public class ExternalPercentageService {
 
 	private final RestTemplate restTemplate;
 
-	//	private static final String RANDOM_API_URL = "https://www.randomnumberapi.com/api/v1.0/random?min=1&max=20&count=1";
-	private static final String RANDOM_API_URL = "http://localhost:9010/test";
+	private static final String RANDOM_API_URL = "https://www.randomnumberapi.com/api/v1.0/random?min=1&max=20&count=1";
 
 	@Cacheable(value = "percentageCache")
 	@Retryable(value = {ExternalException.class}, backoff = @Backoff(delay = 1000))
@@ -31,15 +30,15 @@ public class ExternalPercentageService {
 	public BigDecimal fetchPercentage() {
 		log.info("Obteniendo porcentaje (consultando servicio externo o usando cache)...");
 		try {
-			Integer response = restTemplate.getForObject(RANDOM_API_URL, Integer.class);
+			Integer[] response = restTemplate.getForObject(RANDOM_API_URL, Integer[].class);
 
 			if (response == null) {
 				log.error("Respuesta vacía del servicio externo");
 				throw new ExternalException("Respuesta vacía del servicio externo");
 			}
 
-			log.info("Porcentaje recibido del servicio externo: {}", response);
-			return BigDecimal.valueOf(response);
+			log.info("Porcentaje recibido del servicio externo: {}", response[0]);
+			return BigDecimal.valueOf(response[0]);
 		}
 		catch (Exception e) {
 			log.error("Error al obtener porcentaje de la API externa: {}", e.getMessage());

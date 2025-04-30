@@ -1,6 +1,5 @@
 package com.tenpo.api.configuration.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenpo.api.call.dto.CallHistoryDtoRequest;
 import com.tenpo.api.call.service.ICallHistoryService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class RequestLoggingInterceptor implements HandlerInterceptor {
 
-	private final ObjectMapper objectMapper;
 	private final ICallHistoryService callHistoryService;
 
 	@Override
@@ -32,11 +30,19 @@ public class RequestLoggingInterceptor implements HandlerInterceptor {
 				responseBody = new String(cachedResponse.getCachedBody());
 			}
 
-			callHistoryService.saveHistory(new CallHistoryDtoRequest(endpoint, requestBody,
-			 isError ? (ex != null ? ex.getMessage() : "Error") : responseBody, isError));
+			callHistoryService.saveHistory(new CallHistoryDtoRequest(endpoint, requestBody, getResponseBody(ex, responseBody
+			 , isError), isError));
 		}
 		catch (IOException e) {
 			log.error("No se pudo leer el cuerpo del request o response para historial", e);
 		}
+	}
+
+	public String getResponseBody(Exception ex, String responseBody, boolean isError) {
+		if (!isError)
+			return responseBody;
+		if (ex == null)
+			return "Error";
+		return ex.getMessage();
 	}
 }

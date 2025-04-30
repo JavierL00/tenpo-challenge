@@ -21,21 +21,25 @@ public class ExternalPercentageService {
 
 	@Cacheable(value = "percentageCache")
 	public BigDecimal getPercentage() {
+		return fetchPercentage();
+	}
+
+	public BigDecimal fetchPercentage() {
 		log.info("Obteniendo porcentaje (consultando servicio externo o usando cache)...");
 		try {
 			Integer response = restTemplate.getForObject(RANDOM_API_URL, Integer.class);
-			if (response != null) {
-				log.info("Porcentaje recibido del servicio externo: {}", response);
-				return BigDecimal.valueOf(response);
-			}
-			else {
+
+			if (response == null) {
 				log.error("Respuesta vacía del servicio externo");
 				throw new ExternalException("Respuesta vacía del servicio externo");
 			}
+
+			log.info("Porcentaje recibido del servicio externo: {}", response);
+			return BigDecimal.valueOf(response);
 		}
 		catch (Exception e) {
 			log.error("Error al obtener porcentaje de la API externa: {}", e.getMessage());
-			throw new ExternalException("El servicio externo no está disponible", e);
+			throw new ExternalException(e.getMessage());
 		}
 	}
 }

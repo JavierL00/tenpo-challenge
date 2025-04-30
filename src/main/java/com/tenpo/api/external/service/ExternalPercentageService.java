@@ -4,6 +4,9 @@ import com.tenpo.api.external.exception.ExternalException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,6 +23,7 @@ public class ExternalPercentageService {
 	private static final String RANDOM_API_URL = "http://localhost:9010/test";
 
 	@Cacheable(value = "percentageCache")
+	@Retryable(value = {ExternalException.class}, backoff = @Backoff(delay = 1000))
 	public BigDecimal getPercentage() {
 		return fetchPercentage();
 	}
@@ -41,5 +45,11 @@ public class ExternalPercentageService {
 			log.error("Error al obtener porcentaje de la API externa: {}", e.getMessage());
 			throw new ExternalException(e.getMessage());
 		}
+	}
+
+	@Recover
+	public BigDecimal recover(ExternalException e) {
+		log.error("Todos los intentos fallaron. Retornando fallback.");
+		throw e;
 	}
 }

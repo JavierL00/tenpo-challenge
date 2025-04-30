@@ -1,9 +1,8 @@
-package com.tenpo.api.call.service.impl;
+package com.tenpo.api.callhistory.service.impl;
 
-import com.tenpo.api.call.dto.CallHistoryDtoRequest;
-import com.tenpo.api.call.entity.CallHistoryEntity;
-import com.tenpo.api.call.repository.ICallHistoryRepository;
-import com.tenpo.api.calculate.exception.CalculateException;
+import com.tenpo.api.callhistory.dto.CallHistoryDtoRequest;
+import com.tenpo.api.callhistory.entity.CallHistoryEntity;
+import com.tenpo.api.callhistory.repository.ICallHistoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

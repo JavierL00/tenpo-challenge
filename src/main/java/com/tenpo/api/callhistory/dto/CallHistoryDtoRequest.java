@@ -1,4 +1,4 @@
-package com.tenpo.api.call.dto;
+package com.tenpo.api.callhistory.dto;
 
 public record CallHistoryDtoRequest(String endpoint, String requestParams, String responseData, boolean isError) {
 }

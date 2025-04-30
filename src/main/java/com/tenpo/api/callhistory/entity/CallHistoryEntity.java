@@ -1,4 +1,4 @@
-package com.tenpo.api.call.entity;
+package com.tenpo.api.callhistory.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

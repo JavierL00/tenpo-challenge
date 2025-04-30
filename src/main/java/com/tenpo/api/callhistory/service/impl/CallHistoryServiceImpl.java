@@ -1,13 +1,11 @@
-package com.tenpo.api.call.service.impl;
+package com.tenpo.api.callhistory.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tenpo.api.calculate.dto.request.CalculateDtoRequest;
-import com.tenpo.api.calculate.dto.response.CalculateDtoResponse;
 import com.tenpo.api.calculate.exception.CalculateException;
-import com.tenpo.api.call.dto.CallHistoryDtoRequest;
-import com.tenpo.api.call.entity.CallHistoryEntity;
-import com.tenpo.api.call.repository.ICallHistoryRepository;
-import com.tenpo.api.call.service.ICallHistoryService;
+import com.tenpo.api.callhistory.dto.CallHistoryDtoRequest;
+import com.tenpo.api.callhistory.entity.CallHistoryEntity;
+import com.tenpo.api.callhistory.repository.ICallHistoryRepository;
+import com.tenpo.api.callhistory.service.ICallHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;

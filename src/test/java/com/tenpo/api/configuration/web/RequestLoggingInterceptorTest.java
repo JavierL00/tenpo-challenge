@@ -1,6 +1,6 @@
 package com.tenpo.api.configuration.web;
 
-import com.tenpo.api.call.service.ICallHistoryService;
+import com.tenpo.api.callhistory.service.ICallHistoryService;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

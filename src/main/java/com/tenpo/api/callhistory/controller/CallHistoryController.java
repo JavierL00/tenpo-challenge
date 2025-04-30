@@ -1,7 +1,7 @@
-package com.tenpo.api.call.controller;
+package com.tenpo.api.callhistory.controller;
 
-import com.tenpo.api.call.entity.CallHistoryEntity;
-import com.tenpo.api.call.service.ICallHistoryService;
+import com.tenpo.api.callhistory.entity.CallHistoryEntity;
+import com.tenpo.api.callhistory.service.ICallHistoryService;
 import com.tenpo.api.constant.PathConstant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

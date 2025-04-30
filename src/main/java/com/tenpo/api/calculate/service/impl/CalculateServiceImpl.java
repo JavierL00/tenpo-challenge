@@ -1,7 +1,6 @@
 package com.tenpo.api.calculate.service.impl;
 
 import com.tenpo.api.calculate.dto.response.CalculateDtoResponse;
-import com.tenpo.api.calculate.exception.CalculateException;
 import com.tenpo.api.calculate.service.ICalculateService;
 import com.tenpo.api.calculate.util.BigDecimalUtils;
 import com.tenpo.api.external.service.ExternalPercentageService;
@@ -36,6 +35,6 @@ public class CalculateServiceImpl implements ICalculateService {
 		log.info("El resultado final aplicando el porcentaje es {}", total);
 
 		log.info("Retornando el resultado de la suma");
-		return CalculateDtoResponse.builder().result(total).build();
+		return new CalculateDtoResponse(total);
 	}
 }

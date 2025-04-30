@@ -4,14 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenpo.api.calculate.dto.request.CalculateDtoRequest;
 import com.tenpo.api.calculate.dto.response.CalculateDtoResponse;
 import com.tenpo.api.calculate.exception.CalculateException;
-import com.tenpo.api.call.dto.response.CallHistoryDtoResponse;
+import com.tenpo.api.call.dto.CallHistoryDtoRequest;
 import com.tenpo.api.call.entity.CallHistoryEntity;
 import com.tenpo.api.call.repository.ICallHistoryRepository;
 import com.tenpo.api.call.service.ICallHistoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -25,20 +24,17 @@ public class CallHistoryServiceImpl implements ICallHistoryService {
 	private final ICallHistoryRepository callHistoryRepository;
 
 	@Async
-	public void saveHistory(
-	 String endpoint, CalculateDtoRequest requestParams, CalculateDtoResponse responseData,
-	 boolean isError
-	) {
+	public void saveHistory(CallHistoryDtoRequest request) {
 		try {
 			CallHistoryEntity history = new CallHistoryEntity();
 			history.setTimestamp(LocalDateTime.now());
-			history.setEndpoint(endpoint);
-			history.setRequestParams(serializeObject(requestParams));
-			history.setResponseData(serializeObject(responseData));
-			history.setError(isError);
+			history.setEndpoint(request.endpoint());
+			history.setRequestParams(serializeObject(request.requestParams()));
+			history.setResponseData(serializeObject(request.responseData()));
+			history.setError(request.isError());
 
 			callHistoryRepository.save(history);
-			log.info("Historial guardado correctamente para endpoint: {}", endpoint);
+			log.info("Historial guardado correctamente para endpoint: {}", request);
 		}
 		catch (Exception e) {
 			log.error("Error guardando historial de llamada", e);

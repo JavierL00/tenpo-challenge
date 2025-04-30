@@ -13,5 +13,18 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: always
 
+  api:
+    build: .
+    container_name: tenpo_api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/challenge_db
+      SPRING_DATASOURCE_USERNAME: challenge_user
+      SPRING_DATASOURCE_PASSWORD: challenge_pass
+    restart: always
+
 volumes:
   postgres_data:

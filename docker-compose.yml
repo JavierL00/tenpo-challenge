@@ -14,8 +14,7 @@ services:
     restart: always
 
   api:
-    build: .
-    container_name: tenpo_api
+    image: space1600/tenpo-api:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -24,7 +23,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/challenge_db
       SPRING_DATASOURCE_USERNAME: challenge_user
       SPRING_DATASOURCE_PASSWORD: challenge_pass
-    restart: always
 
 volumes:
   postgres_data:

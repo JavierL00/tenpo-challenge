@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class RateLimitFilter implements Filter {
 
-	private static final Integer NUMBER_PETITIONS = 2;
+	private static final Integer NUMBER_PETITIONS = 5;
 	private static final Integer MINUTES_DURATION = 1;
 
 	private final ConcurrentHashMap<String, Bucket> buckets = new ConcurrentHashMap<>();
